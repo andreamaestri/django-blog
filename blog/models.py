@@ -27,6 +27,7 @@ class Comment(models.Model):
     approved = models.BooleanField(default=False)
     created_on = models.DateTimeField(auto_now_add=True)
 
+
     def __str__(self):
         body_excerpt = self.body[:100] + '...' if len(self.body) > 100 else self.body
         return f"Comment by {self.author}: {body_excerpt}"
