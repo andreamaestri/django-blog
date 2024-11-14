@@ -13,6 +13,9 @@ gunicorn = "^23.0.0"
 psycopg2-binary = "^2.9.10"
 python-dotenv = "^1.0.1"
 whitenoise = "^6.8.2"
+django-tinymce = "^4.1.0"
+django-filebrowser = "^4.0.3"
+django-admin-interface = "^0.29.1"
 
 
 [build-system]

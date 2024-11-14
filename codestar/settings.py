@@ -35,6 +35,9 @@ ALLOWED_HOSTS = ["*"]
 # Application definition
 INSTALLED_APPS = [
     'whitenoise.runserver_nostatic',  # Add WhiteNoise
+    "admin_interface",
+    "colorfield",
+    'filebrowser',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -42,7 +45,11 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'blog.apps.BlogConfig',
+    'tinymce',
 ]
+
+X_FRAME_OPTIONS = "SAMEORIGIN"
+SILENCED_SYSTEM_CHECKS = ["security.W019"]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -72,6 +79,47 @@ TEMPLATES = [
         },
     },
 ]
+TINYMCE_JS_URL = 'https://cdnjs.cloudflare.com/ajax/libs/tinymce/7.5.1/tinymce.min.js'
+TINYMCE_DEFAULT_CONFIG = {
+    "theme": "silver",
+    "width": "100%",
+    "height": "600px",
+    "menubar": "file edit view insert format tools help",
+    "skin": "oxide-dark",
+    "content_css": "dark",
+    "plugins": (
+        "advlist autolink lists link image charmap preview anchor "
+        "searchreplace visualblocks code fullscreen "
+        "insertdatetime media table paste code help wordcount "
+        "codesample quickbars emoticons"
+    ),
+    "toolbar": (
+        "undo redo | blocks | bold italic backcolor | "
+        "alignleft aligncenter alignright alignjustify | "
+        "bullist numlist outdent indent | codesample | "
+        "removeformat | help | code | link image media table | "
+        "visualblocks fullscreen preview"
+    ),
+    "codesample_global_prismjs": True,
+    "codesample_languages": [
+        {"text": "Python", "value": "python"},
+        {"text": "JavaScript", "value": "javascript"},
+        {"text": "HTML/XML", "value": "markup"},
+        {"text": "CSS", "value": "css"},
+        {"text": "TypeScript", "value": "typescript"},
+        {"text": "Java", "value": "java"},
+        {"text": "C#", "value": "csharp"},
+        {"text": "PHP", "value": "php"},
+        {"text": "Ruby", "value": "ruby"},
+        {"text": "SQL", "value": "sql"},
+        {"text": "Bash", "value": "bash"},
+        {"text": "Git", "value": "git"}
+    ],
+    "toolbar_mode": "sliding",
+    "contextmenu": "link image table codesample",
+    "quickbars_selection_toolbar": "bold italic | quicklink h2 h3 blockquote codesample",
+    "content_style": "body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif; line-height: 1.6; }",
+}
 
 WSGI_APPLICATION = 'codestar.wsgi.application'
 
