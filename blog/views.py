@@ -14,6 +14,7 @@ class PostDetailView(DetailView):
     model = Post
     template_name = 'post_detail.html'
     context_object_name = 'post'
+    slug_url_kwarg = 'slug'
 
     def get_queryset(self):
         return Post.objects.filter(status=1)
