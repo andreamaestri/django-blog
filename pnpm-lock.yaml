@@ -14,6 +14,9 @@ importers:
       flowbite:
         specifier: ^2.5.2
         version: 2.5.2
+      lodash.isplainobject:
+        specifier: ^4.0.6
+        version: 4.0.6
     devDependencies:
       '@tailwindcss/typography':
         specifier: ^0.5.15
