@@ -1,0 +1,18 @@
+{% extends "_base.html" %}
+{% block content %}
+<div class="container mx-auto px-4 py-8">
+    <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden">
+        <div class="p-6">
+            <h1 class="text-2xl font-bold mb-4 text-gray-900 dark:text-white">
+                {{ post.title }}
+            </h1>
+            <div class="prose dark:prose-invert max-w-none">
+                {{ post.content|safe }}
+            </div>
+            <div class="mt-4 text-sm text-gray-500 dark:text-gray-400">
+                Posted by {{ post.author }} on {{ post.created_on|date }}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
