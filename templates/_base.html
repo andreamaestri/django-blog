@@ -24,7 +24,7 @@
     <link rel="stylesheet" href="{% static 'css/output.css' %}" />
     {% endcompress %}
   </head>
-  <body class="flex flex-col h-screen bg-main-bg">
+  <body class="flex flex-col min-h-screen bg-main-bg">
     <!-- Navigation -->
     <nav
       class="bg-white border-gray-200 dark:bg-gray-900 shadow-md sticky top-0 z-50"
@@ -142,7 +142,7 @@
       {% endfor %}
     </div>
 
-    <main class="min-w-full min-h-screen">
+    <main class="flex-grow">
       {% if user.is_authenticated %}
       <p class="text-right p-3 text-gray-600">
         You are logged in as {{ user }}
@@ -161,7 +161,7 @@
     </main>
 
     <!-- Footer -->
-    <footer class="bg-gray-800 mt-auto py-6">
+    <footer class="bg-gray-800 py-6 mt-auto">
       {% block copyright %}
       <p class="text-center text-white">Made by Code Instituters</p>
       {% endblock copyright %}
