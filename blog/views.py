@@ -40,3 +40,9 @@ class PostDetailView(DetailView):
         
         slug = self.kwargs.get(self.slug_url_kwarg)
         return get_object_or_404(queryset, slug=slug)
+
+    def get_context_data(self, **kwargs):
+        """Add additional context data"""
+        context = super().get_context_data(**kwargs)
+        context['coder'] = 'Andrea'
+        return context
