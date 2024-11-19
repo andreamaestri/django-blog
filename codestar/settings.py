@@ -28,8 +28,14 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 # Check if running on Heroku
 IS_HEROKU_APP = "DYNO" in os.environ and not "CI" in os.environ
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = not IS_HEROKU_APP
+# Use environment variable for DEBUG setting
+DEBUG = os.environ.get('DEBUG', 'False') == 'True'
+
+# For development, you can override this in your local .env file
+# DEBUG=True
+
+# For Heroku production, make sure DEBUG is False
+# heroku config:set DEBUG=False
 
 ALLOWED_HOSTS = ["*"]
 
@@ -193,3 +199,25 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # Default primary key field type
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+if not DEBUG:
+    # Security settings for production
+    SECURE_SSL_REDIRECT = True
+    SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+    SESSION_COOKIE_SECURE = True
+    CSRF_COOKIE_SECURE = True
+    
+    # Improved error logging
+    LOGGING = {
+        'version': 1,
+        'disable_existing_loggers': False,
+        'handlers': {
+            'console': {
+                'class': 'logging.StreamHandler',
+            },
+        },
+        'root': {
+            'handlers': ['console'],
+            'level': 'WARNING',
+        },
+    }
