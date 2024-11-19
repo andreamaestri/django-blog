@@ -1,0 +1,13 @@
+{% extends '_base.html' %} {% block content %} {% load static %}
+<article class="prose prose-xl max-w-none mx-auto prose-img:m-0">
+    <h1>About me</h1>
+    <h2>{{ andrea.name }}</h2>
+    <h2>Job: {{ andrea.job }}</h2>
+    <div class="container mx-auto px-4 py-8">
+        <div class="bg-white rounded-lg shadow p-6">
+          <div class="prose prose-lg max-w-none">{{ andrea.biography | safe }}</div>
+        </div>
+      </div>
+      <div class="prose-sm p-3">Updated: {{ andrea.updated_on }}</div>
+</article>
+{% endblock %}

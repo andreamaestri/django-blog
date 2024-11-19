@@ -9,7 +9,6 @@
           >
             {{ post.title }}
           </h1>
-          <h2>{{ coder }}</h2>
           <p class="post-subtitle flex items-center space-x-2 text-slate-500">
             <span class="font-medium text-slate-50-300">{{ post.author }}</span>
             <span class="text-slate-900/50">|</span>
@@ -30,6 +29,13 @@
   <div class="container mx-auto px-4 py-8">
     <div class="bg-white rounded-lg shadow p-6">
       <div class="prose prose-lg max-w-none">{{ post.content | safe }}</div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col text-right">
+      <!-- Updated on field goes in here -->
+
+      <p class="text-end"><em>Updated on: {{ andrea.updated_on }}</em></p>
     </div>
   </div>
 </article>
