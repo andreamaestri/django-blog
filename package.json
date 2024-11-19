@@ -11,7 +11,7 @@
   "scripts": {
     "build:css": "tailwindcss -i ./static/src/input.css -o ./static/css/output.css",
     "watch:css": "tailwindcss -i ./static/src/input.css -o ./static/css/output.css --watch",
-    "postinstall": "export NODE_PATH=./staticfiles/node_modules"
+    "postinstall": "export NODE_PATH=./static/node_modules"
   },
   "name": "django-blog",
   "description": "a really cool app",
