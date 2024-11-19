@@ -167,8 +167,13 @@ USE_I18N = True
 USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
+STATIC_URL = '/static/'
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static'),
+    os.path.join(BASE_DIR, 'node_modules'),
+]
+
 STATIC_ROOT = BASE_DIR / "staticfiles"
-STATIC_URL = "static/"
 
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
@@ -183,7 +188,6 @@ STORAGES = {
     },
 }
 WHITENOISE_KEEP_ONLY_HASHED_FILES = True
-
 WHITENOISE_USE_FINDERS = True
 WHITENOISE_AUTOREFRESH = DEBUG
 
