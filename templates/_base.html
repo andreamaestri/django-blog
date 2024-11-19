@@ -1,0 +1,112 @@
+{% load compress %} {% load static %}
+<!DOCTYPE html>
+<html class="h-screen" lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>CodeStar Blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- Google Fonts CSS -->
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lato:wght@300;700&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Font Awesome CSS -->
+    <link
+      rel="stylesheet"
+      href="{% static '@fortawesome/fontawesome-free/css/all.min.css' %}"
+    />
+    {% compress css %}
+    <link rel="stylesheet" href="{% static 'css/output.css' %}" />
+    {% endcompress %}
+  </head>
+  <body class="flex flex-col h-screen bg-main-bg">
+    <!-- Navigation -->
+    <nav class="bg-white border-gray-200 dark:bg-gray-900 shadow-md">
+      <div
+        class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4"
+      >
+        <a href="{% url 'blog:home' %}" class="flex items-center">
+          <span
+            class="brand self-center font-lato text-brand font-bold text-brand-gray"
+          >
+            c<span class="text-brand-red red-o" style="color: #e84610">o</span
+            >de<span class="thin">|star</span>
+          </span>
+        </a>
+        <button
+          data-collapse-toggle="navbar-default"
+          type="button"
+          class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+          aria-controls="navbar-default"
+          aria-expanded="false"
+        >
+          <span class="sr-only">Open main menu</span>
+          <svg
+            class="w-5 h-5"
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 17 14"
+          >
+            <path
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M1 1h15M1 7h15M1 13h15"
+            />
+          </svg>
+        </button>
+        <div class="hidden w-full md:block md:w-auto" id="navbar-default">
+          <ul
+            class="font-medium flex flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700"
+          >
+            <li>
+              <a
+                href="{% url 'blog:home' %}"
+                class="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 {% if request.path == home_url %}text-blue-700{% endif %}"
+                aria-current="page"
+              >
+                Home
+              </a>
+            </li>
+          </ul>
+          <span
+            class="text-gray-500 block md:inline-block mt-2 md:mt-0 md:ml-4"
+          >
+            Adventures of a software developer
+          </span>
+        </div>
+      </div>
+    </nav>
+
+    <main class="flex-1 bg-gray-100">
+      <div class="container mx-auto py-8">
+        {% block content %}
+        <!-- Content Goes here -->
+        {% endblock content %}
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 mt-auto py-6">
+      {% block copyright %}
+      <p class="text-center text-white">Made by Code Instituters</p>
+      {% endblock copyright %}
+
+      <p class="text-center text-white">
+        Follow us:
+        <i class="fab fa-facebook-square ms-3"></i>
+        <i class="fab fa-twitter-square ms-3"></i>
+        <i class="fab fa-instagram-square ms-3"></i>
+        <i class="fab fa-youtube-square ms-3"></i>
+      </p>
+    </footer>
+    <script src="{% static 'flowbite/dist/flowbite.js' %}"></script>
+  </body>
+</html>

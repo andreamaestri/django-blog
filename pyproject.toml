@@ -16,6 +16,7 @@ whitenoise = "^6.8.2"
 django-tinymce = "^4.1.0"
 django-filebrowser = "^4.0.3"
 django-admin-interface = "^0.29.1"
+django-compressor = "^4.5.1"
 
 
 [build-system]

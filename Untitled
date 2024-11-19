@@ -1,0 +1,30 @@
+import { Tldraw } from 'tldraw'
+import 'tldraw/tldraw.css'
+
+export default function App() {
+ return (
+  <div style={{ position: 'fixed', inset: 0 }}>
+   <Tldraw />
+  </div>
+ )
+}
+
+// Settings: Component for managing user preferences and app configuration
+// function Timer() {
+//   return <div>Timer Widget</div>
+// }
+
+// CoinFlipper: Simple decision making helper widget
+// function CoinFlipper() {
+//   return <div>Coin Flipper Widget</div>
+// }
+
+// TaskTracker: Manages user tasks and progress tracking
+
+// WhiteboardSpace: Main collaborative workspace area
+
+// NotificationSystem: Handles real-time updates and user notifications
+
+// AccessibilityWrapper: Provides accessibility features and keyboard shortcuts
+
+// AutoSave: Handles data persistence and session management
