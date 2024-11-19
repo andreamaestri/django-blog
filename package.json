@@ -11,7 +11,8 @@
   "scripts": {
     "build:css": "tailwindcss -i ./static/src/input.css -o ./static/css/output.css",
     "watch:css": "tailwindcss -i ./static/src/input.css -o ./static/css/output.css --watch",
-    "postinstall": "mkdir -p static/node_modules && npm run build:css"
+    "create:css": "echo '@tailwind base;@tailwind components;@tailwind utilities;' > ./static/src/input.css",
+    "postinstall": "mkdir -p static/src static/css static/node_modules && npm run create:css && npm run build:css && cp -r node_modules/* static/node_modules/"
   },
   "name": "django-blog",
   "description": "a really cool app",
