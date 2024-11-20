@@ -20,7 +20,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 TEMPLATES_DIR = os.path.join(BASE_DIR, 'templates')
 
 # Loading variables from .env file
-load_dotenv()
+
+load_dotenv(verbose=True, override=True)
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.getenv('SECRET_KEY')
