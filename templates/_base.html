@@ -1,4 +1,9 @@
 {% load compress %} {% load static %}
+
+{% url 'account_login' as login_url %}
+{% url 'account_signup' as signup_url %}
+{% url 'account_logout' as logout_url %}
+
 <!DOCTYPE html>
 <html class="h-screen" lang="en">
   <head>
@@ -26,7 +31,7 @@
     <link rel="stylesheet" href="{% static 'css/output.css' %}" />
     {% endcompress %}
   </head>
-  <body class="flex flex-col min-h-screen bg-main-bg">
+  <body class="h-screen flex flex-col overflow-hidden">
     <!-- Navigation -->
     <nav
       class="bg-white border-gray-200 dark:bg-gray-900 shadow-md sticky top-0 z-50"
@@ -92,25 +97,43 @@
             {% if user.is_authenticated %}
             <li>
               <a
-                href="#"
+                href="{% url 'account_logout' %}"
                 class="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 {% if request.path == logout_url %}text-blue-700{% endif %}"
-                >Logout</a
               >
+                <span class="flex items-center">
+                  <svg class="w-5 h-5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+                  </svg>
+                  Logout
+                </span>
+              </a>
             </li>
             {% else %}
             <li>
               <a
-                href="#"
+                href="{% url 'account_signup' %}"
                 class="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 {% if request.path == signup_url %}text-blue-700{% endif %}"
-                >Register</a
               >
+                <span class="flex items-center">
+                  <svg class="w-5 h-5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z" />
+                  </svg>
+                  Register
+                </span>
+              </a>
             </li>
             <li>
               <a
-                href="#"
+                href="{% url 'account_login' %}"
                 class="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 {% if request.path == login_url %}text-blue-700{% endif %}"
-                >Login</a
               >
+                <span class="flex items-center">
+                  <svg class="w-5 h-5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1" />
+                  </svg>
+                  Login
+                </span>
+              </a>
             </li>
             {% endif %}
           </ul>
@@ -144,7 +167,7 @@
       {% endfor %}
     </div>
 
-    <main class="flex-grow">
+    <main class="flex-1 overflow-auto">
       {% if user.is_authenticated %}
       <p class="text-right p-3 text-gray-600">
         You are logged in as {{ user }}

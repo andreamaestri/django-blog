@@ -23,5 +23,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),  # Django admin URLs
     path("", include("blog.urls"), name="blog"),  # Blog URLs
     path('about/', include('about.urls'), name="about-urls"),  # About URLs
+    path("accounts/", include("allauth.urls")),
     path('tinymce/', include('tinymce.urls')),  # TinyMCE URLs
 ]
