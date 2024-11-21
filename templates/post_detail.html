@@ -65,7 +65,7 @@
         </form>
 
         {% for comment in comments %}
-        <article class="p-6 mb-3 text-base rounded-lg bg-slate-100 {% if not forloop.first %}border-t border-gray-200 dark:border-gray-700{% endif %} dark:bg-gray-900">
+        <article class="p-6 mb-3 text-base rounded-lg bg-slate-100 {% if not comment.approved %}opacity-50{% endif %} {% if not forloop.first %}border-t border-gray-200 dark:border-gray-700{% endif %} dark:bg-gray-900">
             <footer class="flex justify-between items-center mb-2">
                 <div class="flex items-center">
                     <p class="inline-flex items-center mr-3 text-sm text-gray-900 dark:text-white font-semibold">
@@ -76,6 +76,11 @@
                     </p>
                 </div>
             </footer>
+            {% if not comment.approved and user.is_authenticated %}
+                <span class="inline-flex items-center rounded-md bg-red-50 px-2 py-1 text-xs font-medium text-red-700 ring-1 ring-inset ring-red-600/10">
+                    This comment is awaiting approval
+                </span>
+            {% endif %}
             <p class="text-gray-500 dark:text-gray-400">{{ comment.body | safe }}</p>
             <div class="flex items-center mt-4 space-x-4">
                 <button type="button" class="flex items-center text-sm text-gray-500 hover:underline dark:text-gray-400 font-medium">

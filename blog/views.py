@@ -22,8 +22,15 @@ class PostDetailView(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         post = self.get_object()
-        comments = post.comments.filter(approved=True).order_by("-created_on")
-        comment_count = comments.count()
+        
+        if self.request.user.is_authenticated:
+            # Get all comments for authenticated users
+            comments = post.comments.order_by("-created_on")
+        else:
+            # Get only approved comments for anonymous users
+            comments = post.comments.filter(approved=True).order_by("-created_on")
+            
+        comment_count = post.comments.filter(approved=True).count()
         context['comments'] = comments
         context['comment_count'] = comment_count
         return context
