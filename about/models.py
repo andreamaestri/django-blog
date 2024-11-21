@@ -1,5 +1,4 @@
 from django.db import models
-from tinymce.models import HTMLField
 
 # Create your models here.
 class Andrea(models.Model):
@@ -7,7 +6,16 @@ class Andrea(models.Model):
     job = models.CharField(max_length=100, unique=True)
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
-    biography = HTMLField()
+    biography = models.TextField()
     
     def __str__(self):
         return self.name
+
+class Collaboration(models.Model):
+    name = models.CharField(max_length=100)
+    email = models.EmailField()
+    project_idea = models.TextField()
+    created_on = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"Collaboration request from {self.name}"
