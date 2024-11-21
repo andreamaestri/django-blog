@@ -1,4 +1,9 @@
+from typing import Any
 from django.views.generic import ListView, DetailView
+from django.shortcuts import get_object_or_404, redirect
+from django.views import View
+from .models import Post, Comment
+from .forms import CommentForm
 from .models import Post
 
 class HomeView(ListView):
@@ -14,3 +19,24 @@ class PostDetailView(DetailView):
     model = Post
     template_name = 'post_detail.html'
     context_object_name = 'post'
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        post = self.get_object()
+        comments = post.comments.filter(approved=True).order_by("-created_on")
+        comment_count = comments.count()
+        context['comments'] = comments
+        context['comment_count'] = comment_count
+        return context
+
+class AddCommentView(View):
+    def post(self, request, pk, *args, **kwargs):
+        post = get_object_or_404(Post, pk=pk)
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.post = post
+            comment.author = request.user
+            comment.save()
+            return redirect('blog:post_detail', slug=post.slug)
+        return redirect('blog:post_detail', slug=post.slug)
