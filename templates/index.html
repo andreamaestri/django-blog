@@ -1,10 +1,18 @@
 {% extends "_base.html" %}
+{% load static %}
 {% block content %}
 <div class="container mx-auto px-4 py-6 h-full overflow-auto">
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-7xl mx-auto">
         {% if post_list %}
         {% for post in post_list %}
-        <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg overflow-hidden transition-all duration-300 hover:shadow-2xl border border-gray-100 dark:border-gray-700 flex flex-col h-[400px]">
+        <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg overflow-hidden transition-all duration-300 hover:shadow-2xl border border-gray-100 dark:border-gray-700 flex flex-col h-[500px]">
+            <div class="aspect-w-16 aspect-h-9 relative">
+                {% if "placeholder" in post.featured_image.url %}
+                <img class="object-cover w-full h-48" src="{% static 'images/default.jpg' %}" alt="placeholder image">
+                {% else %}
+                <img class="object-cover w-full h-48" src="{{ post.featured_image.url }}" alt="{{ post.title }}">
+                {% endif %}
+            </div>
             <div class="p-6 flex flex-col h-full">
                 <h2 class="text-xl font-bold mb-3 text-gray-900 dark:text-white hover:text-blue-600 dark:hover:text-blue-400 transition-colors line-clamp-2">
                     <a href="{% url 'blog:post_detail' slug=post.slug %}">
