@@ -214,33 +214,57 @@
     <!-- Messages -->
     <div class="max-w-4xl mx-auto px-4 py-4 z-[102]">
       {% for message in messages %}
-      <div class="transform transition-all duration-300 ease-in-out" id="msg">
-        <div
-          class="relative p-4 mb-4 text-sm border rounded-lg shadow-lg {% if message.tags == 'success' %}bg-green-50 text-green-800 border-green-300{% elif message.tags == 'error' %}bg-red-50 text-red-800 border-red-300{% else %}bg-blue-50 text-blue-800 border-blue-300{% endif %}"
-          role="alert"
-        >
-          <div class="flex items-center">
-            <div class="flex-shrink-0">
-              {% if message.tags == 'success' %}
-              <i class="fas fa-check-circle text-green-400 mr-3"></i>
-              {% elif message.tags == 'error' %}
-              <i class="fas fa-exclamation-circle text-red-400 mr-3"></i>
-              {% else %}
-              <i class="fas fa-info-circle text-blue-400 mr-3"></i>
-              {% endif %}
-            </div>
-            <div>{{ message | safe }}</div>
+      <div class="transform transition-all duration-500 ease-in-out translate-y-0 opacity-100" 
+           id="msg-{{ forloop.counter }}" 
+           role="alert">
+        <div class="relative p-4 mb-4 rounded-lg shadow-lg border-l-4 backdrop-blur-sm 
+            {% if message.tags == 'success' %}
+              bg-green-50/90 text-green-800 border-green-500
+            {% elif message.tags == 'error' %}
+              bg-red-50/90 text-red-800 border-red-500
+            {% else %}
+              bg-blue-50/90 text-blue-800 border-blue-500
+            {% endif %}">
+          <div class="flex items-center gap-3">
+        <div class="flex-shrink-0">
+          {% if message.tags == 'success' %}
+            <i class="fas fa-check-circle text-green-500 text-lg"></i>
+          {% elif message.tags == 'error' %}
+            <i class="fas fa-exclamation-circle text-red-500 text-lg"></i>
+          {% else %}
+            <i class="fas fa-info-circle text-blue-500 text-lg"></i>
+          {% endif %}
+        </div>
+        <div class="flex-1 text-base">{{ message | safe }}</div>
+        <button type="button"
+            class="flex-shrink-0 rounded-full p-1.5 hover:bg-gray-200/50 transition-all duration-200"
+            onclick="dismissAlert(this)"
+            aria-label="Close">
+          <i class="fas fa-times text-gray-600"></i>
+        </button>
           </div>
-          <button
-            type="button"
-            class="absolute top-4 right-4 hover:bg-gray-200 rounded-full p-1 transition-colors duration-200"
-            data-dismiss="alert"
-            aria-label="Close"
-          >
-            <i class="fas fa-times text-gray-600"></i>
-          </button>
         </div>
       </div>
+
+      <script>
+        function dismissAlert(button) {
+          const alert = button.closest('[role="alert"]');
+          alert.style.opacity = '0';
+          alert.style.transform = 'translateY(-100%)';
+          setTimeout(() => alert.remove(), 500);
+        }
+
+        // Auto-dismiss after 5 seconds
+        document.querySelectorAll('[role="alert"]').forEach(alert => {
+          setTimeout(() => {
+        if (alert) {
+          alert.style.opacity = '0';
+          alert.style.transform = 'translateY(-100%)';
+          setTimeout(() => alert.remove(), 500);
+        }
+          }, 5000);
+        });
+      </script>
       {% endfor %}
     </div>
 

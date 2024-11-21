@@ -1,10 +1,9 @@
-from typing import Any
 from django.views.generic import ListView, DetailView
 from django.shortcuts import get_object_or_404, redirect
 from django.views import View
-from .models import Post, Comment
-from .forms import CommentForm
+from django.contrib import messages
 from .models import Post
+from .forms import CommentForm
 
 class HomeView(ListView):
     model = Post
@@ -38,5 +37,9 @@ class AddCommentView(View):
             comment.post = post
             comment.author = request.user
             comment.save()
+            messages.add_message(
+                request, messages.SUCCESS,
+                'Comment submitted and awaiting approval'
+            )
             return redirect('blog:post_detail', slug=post.slug)
         return redirect('blog:post_detail', slug=post.slug)
