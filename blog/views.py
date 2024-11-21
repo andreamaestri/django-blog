@@ -1,8 +1,10 @@
 from django.views.generic import ListView, DetailView
-from django.shortcuts import get_object_or_404, redirect
+from django.shortcuts import get_object_or_404, redirect, render
 from django.views import View
 from django.contrib import messages
-from .models import Post
+from django.contrib.auth.decorators import login_required
+from django.http import HttpResponseForbidden
+from .models import Post, Comment
 from .forms import CommentForm
 
 class HomeView(ListView):
@@ -50,3 +52,31 @@ class AddCommentView(View):
             )
             return redirect('blog:post_detail', slug=post.slug)
         return redirect('blog:post_detail', slug=post.slug)
+
+@login_required
+def edit_comment(request, post_pk, pk):
+    comment = get_object_or_404(Comment, pk=pk)
+    
+    # Check if user is the author
+    if comment.author != request.user:
+        return HttpResponseForbidden()
+        
+    if request.method == 'POST':
+        comment.body = request.POST.get('body')
+        comment.save()
+        return redirect('blog:post_detail', slug=comment.post.slug)
+        
+    return render(request, 'edit_comment.html', {'comment': comment, 'post_pk': post_pk})
+
+@login_required
+def delete_comment(request, post_pk, pk):
+    comment = get_object_or_404(Comment, pk=pk)
+    
+    # Check if user is the author
+    if comment.author != request.user:
+        return HttpResponseForbidden()
+        
+    if request.method == 'POST':
+        comment.delete()
+        
+    return redirect('blog:post_detail', slug=comment.post.slug)
